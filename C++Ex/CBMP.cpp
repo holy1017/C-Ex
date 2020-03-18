@@ -74,6 +74,12 @@ public:
 	RGB* pData;// RGB 데이터를 저장할 버퍼 포인터
 
 	RGB rgb_wt = { 255,255,255 };
+	RGB rgb_red = { 0,0,255 };
+	RGB rgb_gre = { 0,255,0 };
+	RGB rgb_blu = { 255,0,0 };
+	RGB rgb_lbl = { 255,255,0 };
+	RGB rgb_pup = { 255,0,255 };
+	RGB rgb_yel = { 0,255,255 };
 
 
 	CBMP() {

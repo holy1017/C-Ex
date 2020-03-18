@@ -14,25 +14,31 @@
 int main(int argc, char** argv) {
 	printf("main st\n" );
 
-	for (int i = 0; i < 100; i++)
-	{
-		printf("%f \n", ((double)rand() / RAND_MAX * 256));
-		printf("%d \n", (int)((double)rand() / RAND_MAX * 256));
-	}
+	//for (int i = 0; i < 100; i++)
+	//{
+	//	printf("%f \n", ((double)rand() / RAND_MAX * 256));
+	//	printf("%d \n", (int)((double)rand() / RAND_MAX * 256));
+	//}
 
 	srand((unsigned int)time(NULL));//난수 처리
 
 
-	int w = 1000, h = 500;
+	int w = 1600, h = 900;
 
-	Cgrp* g = new Cgrp(-500, -250, w, h);
+	Cgrp* g = new Cgrp(-w/2, -h/2, w, h);
 	g->reset();
-	for (int i = 2; i < 500; i += 7)
+	for (int i = 2; i < w/2; i += 7)
 	{
 		g->circle(0, 0, i);
 	}
 	   
-	g->line(-400,-200,400,200);
+	g->line(-w / 3, -h / 3, w / 3, h / 3);
+	g->line(-w / 3, h / 3, w / 3, -h / 3);
+
+	g->line(-h / 3, -w / 3, h / 3,  w / 3);
+	g->line(-h / 3,  w / 3, h / 3, -w / 3);
+
+	g->line(w / 2,  h / 3, -w / 2, -h / 3);
 
 	CBMP b;
 	b.sizeSet(w, h);
@@ -42,9 +48,18 @@ int main(int argc, char** argv) {
 		{
 			if (g->arr[x][y]) {
 				b.setPixel2(x, y, {
-					(BYTE)((double)rand() / RAND_MAX * 256)
-					,(BYTE)((double)rand() / RAND_MAX * 256)
-					,(BYTE)((double)rand() / RAND_MAX * 256)
+					(BYTE)((double)rand() / RAND_MAX * 128+128)
+					, (BYTE)((double)rand() / RAND_MAX * 128 + 128)
+					, (BYTE)((double)rand() / RAND_MAX * 128 + 128)
+					}
+				);
+				//b.setPixel2(x, y, {0,0,255 });
+			}
+			else {
+				b.setPixel2(x, y, {
+					(BYTE)((double)rand() / RAND_MAX * 128)
+					,(BYTE)((double)rand() / RAND_MAX * 128)
+					,(BYTE)((double)rand() / RAND_MAX * 128)
 					}
 				);
 			}

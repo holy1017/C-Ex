@@ -46,40 +46,94 @@ public:
 
 		// 단순 판정판을 위한 용도라서
 		// 정수형으로 처리하기 위해 Fm , dFu , dFd 전부 2식 곱함
+
+		if (x2 < x1)
+		{
+			int xt = x2;
+			int yt = y2;
+			x2 = x1;
+			y2 = y1;
+			x1 = xt;
+			y1 = yt;
+		}
+
 		int W = x2 - x1, H = y2 - y1;
 		int x = x1, y = y1;
 
-		if (W > H) {
-			int F = 2 * H - W, dF1 = 2 * H, dF2 = 2 * (H - W);
-			for (; x <= x2; x++)
-			{
-				setTrue(x, y);
-				if (F < 0) // 선분 위
+		if (y2 >= y1) {
+			printf("y2 - y1>0\n");
+
+			if (W > H) {
+				int F = 2 * H - W, dF1 = 2 * H, dF2 = 2 * (H - W);
+				printf(" F:%d , dF1:%d , dF2:%d \n", F, dF1, dF2);
+				for (; x <= x2; x++)
 				{
-					F += dF1;
+					setTrue(x, y);
+					if (F < 0) // 선분 위
+					{
+						F += dF1;
+					}
+					else { // 선분 아래
+						y++;
+						F += dF2;
+					}
 				}
-				else { // 선분 아래
-					y++;
-					F += dF2;
+			}
+			else {
+				int F = 2 * W - H, dF1 = 2 * W, dF2 = 2 * (W - H);
+				for (; y <= y2; y++)
+				{
+					setTrue(x, y);
+					if (F < 0) // 선분 위
+					{
+						F += dF1;
+					}
+					else { // 선분 아래
+						x++;
+						F += dF2;
+					}
 				}
 			}
 		}
 		else {
-			int F = 2 * W - H, dF1 = 2 * W, dF2 = 2 * (W - H);
-			for (; y <= y2; y++)
-			{
-				setTrue(x, y);
-				if (F < 0) // 선분 위
+			printf("y2<y1\n");
+
+			if (W > -H) {
+				printf(" W > -H \n");
+				int F = 2 * H + W, dF1 = 2 * H, dF2 = 2 * (H + W);
+				printf(" F:%d , dF1:%d , dF2:%d \n", F, dF1, dF2);
+				for (; x <= x2; x++)
 				{
-					F += dF1;
+					setTrue(x, y);
+					if (F > 0) // 선분 위
+					{
+						F += dF1;
+					}
+					else { // 선분 아래
+						y--;
+						F += dF2;
+					}
 				}
-				else { // 선분 아래
-					x++;
-					F += dF2;
+			}
+			else {
+				printf(" W < -H \n");
+				int F = 2 * W + H, dF1 = 2 * W, dF2 = 2 * (W + H);
+				printf(" F:%d , dF1:%d , dF2:%d \n", F, dF1, dF2);
+				for (; y >= y2; y--)
+				{
+					setTrue(x, y);
+					if (F < 0) // 선분 위
+					{
+						F += dF1;
+					}
+					else { // 선분 아래
+						x++;
+						F += dF2;
+					}
+					//printf(" F:%d \n", F);
 				}
 			}
 		}
-
 
 	}
 
