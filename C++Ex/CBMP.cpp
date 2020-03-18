@@ -133,9 +133,17 @@ public:
 	void setPixel(int x, int y) {
 		 setPixel(x, y, rgb_wt);
 	}
-
+	void setPixel2(int x, int y) {
+		setPixel2(x, y, rgb_wt);
+	}
 	void setPixel(int x, int y, RGB rgb) {
 		pData[bih.biWidth*(bih.biHeight - y - 1)+x]=rgb;
+		//pData[bih.biWidth*y+x]=rgb;
+	}
+
+	void setPixel2(int x, int y, RGB rgb) {
+		//pData[bih.biWidth * (bih.biHeight - y - 1) + x] = rgb;
+		pData[bih.biWidth*y+x]=rgb;
 	}
 
 	// 파일 저장
