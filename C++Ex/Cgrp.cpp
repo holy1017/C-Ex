@@ -8,7 +8,7 @@ public:
 
 	int locX = 0, locY = 0, lenW = 0, lenH = 0;
 	int minX = 0, minY = 0, maxX = 0, maxY = 0;
-	bool** arr = NULL; // 기본값 true
+	bool** arr; // 기본값 true
 
 
 	Cgrp(int lenW, int lenH)
@@ -136,8 +136,10 @@ public:
 		// 	arr[i] = new bool[lenW] ;
 		// }
 
-		//free(arr[0]);
-		//free(arr);
+		if (arr ) {
+			free(arr[0]);
+			free(arr);
+		}
 		// 하지만 이거 쓸거. 관리 측면
 		int height = lenH, width = lenW;
 		//int** arr;
