@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 
 	Cgrp* g = new Cgrp(-w/2, -h/2, w, h);
 	g->reset();
-	for (int i = 2; i < w/2; i += 7)
+	for (int i = 0; i < w/2; i += (int)((double)rand() / RAND_MAX * 50 + 1))
 	{
 		g->circle(0, 0, i);
 	}
@@ -48,18 +48,18 @@ int main(int argc, char** argv) {
 		{
 			if (g->arr[x][y]) {
 				b.setPixel2(x, y, {
-					(BYTE)((double)rand() / RAND_MAX * 128+128)
-					, (BYTE)((double)rand() / RAND_MAX * 128 + 128)
-					, (BYTE)((double)rand() / RAND_MAX * 128 + 128)
+					(BYTE)((double)rand() / RAND_MAX * 64+128+ 64)
+					, (BYTE)((double)rand() / RAND_MAX * 64 + 128 + 64)
+					, (BYTE)((double)rand() / RAND_MAX * 64 + 128 + 64)
 					}
 				);
 				//b.setPixel2(x, y, {0,0,255 });
 			}
 			else {
 				b.setPixel2(x, y, {
-					(BYTE)((double)rand() / RAND_MAX * 128)
-					,(BYTE)((double)rand() / RAND_MAX * 128)
-					,(BYTE)((double)rand() / RAND_MAX * 128)
+					(BYTE)((double)rand() / RAND_MAX * 64)
+					,(BYTE)((double)rand() / RAND_MAX * 64)
+					,(BYTE)((double)rand() / RAND_MAX * 64)
 					}
 				);
 			}
