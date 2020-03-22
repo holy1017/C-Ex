@@ -8,7 +8,7 @@ public:
 
 	int locX = 0, locY = 0, lenW = 0, lenH = 0;
 	int minX = 0, minY = 0, maxX = 0, maxY = 0;
-	bool** arr; // 기본값 true
+	bool** arr; // 기본값 ??
 
 
 	Cgrp(int lenW, int lenH)
@@ -20,6 +20,62 @@ public:
 	{
 		locSet(x, y, lenW, lenH);
 		arrMake(lenW, lenH);
+	}
+
+
+	//int stacki = 0;
+	//재귀 함수 오버 스택 발생. 최적화 필요
+	void fill4(int x, int y) {
+		//stacki++;
+
+		// 꼬리 재귀?
+		// https://bozeury.tistory.com/entry/%EA%BC%AC%EB%A6%AC-%EC%9E%AC%EA%B7%80-%EC%B5%9C%EC%A0%81%ED%99%94Tail-Recursion
+		bool retflag = true;
+		chk(x, y, retflag);
+
+		if (retflag) return;
+
+		//printf("fill:%d,%d:%d:%d\n",x,y,t, stacki);
+		getTrue(x, y, retflag);
+		if (!retflag) {
+			setTrue(x, y);
+			fill4(x+1, y,retflag);
+			fill4(x-1, y,retflag);
+			fill4(x, y+1,retflag);
+			fill4(x, y-1,retflag);
+		}
+		//stacki--;
+	}
+
+	//int stacki = 0;
+	//재귀 함수 오버 스택 발생. 최적화 필요
+	void fill4(int x, int y,bool& retflag) {
+		//stacki++;
+
+		// 꼬리 재귀?
+		retflag = true;
+		chk(x, y, retflag);
+
+		if (retflag) return;
+
+		//printf("fill:%d,%d:%d:%d\n",x,y,t, stacki);
+		getTrue(x, y, retflag);
+		if (!retflag) {
+			setTrue(x, y);
+			fill4(x + 1, y);
+			fill4(x - 1, y);
+			fill4(x, y + 1);
+			fill4(x, y - 1);
+		}
+		//stacki--;
+	}
+
+	void chk(int x, int y, bool& retflag)
+	{
+		if (x< minX || x > maxX || y< minY || y > maxY) {
+			return;
+		}
+		retflag = false;
 	}
 
 	void line(int x1, int y1, int x2, int y2) {
@@ -172,11 +228,29 @@ public:
 		arr[x - minX][y - minY] = true;
 	}
 
+	bool getTrue(int x, int y) {
+		//if (x< minX || x > maxX || y< minY || y > maxY) {
+		//	return NULL;
+		//}
+		//printf("getTrue : %d \n", arr[x - minX][y - minY]);
+		return arr[x - minX][y - minY] ;
+	}
+
+	void getTrue(int x, int y ,bool& retflag) {
+		//if (x< minX || x > maxX || y< minY || y > maxY) {
+		//	return NULL;
+		//}
+		//printf("getTrue : %d \n", arr[x - minX][y - minY]);
+		retflag = arr[x - minX][y - minY];		
+	}
+
 	void locSet(int x, int y, int lenW, int lenH) {
 		this->minX = x;
 		this->minY = y;
 		this->maxX = x + lenW - 1;
 		this->maxY = y + lenH - 1;
+
+		printf("loc: %d , %d : %d , %d \n", this->minX, this->minY, this->maxX, this->maxY);
 	}
 
 	void arrMake(int lenW, int lenH)

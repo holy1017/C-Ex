@@ -9,7 +9,10 @@
 #include "CBMP.cpp"
 #include "Cgrp.cpp"
 #include <time.h>
+#include "Main.h"
 
+
+int rndInt(int rang, int loc);
 
 int main(int argc, char** argv) {
 	printf("main st\n" );
@@ -40,6 +43,16 @@ int main(int argc, char** argv) {
 
 	g->line(w / 2,  h / 3, -w / 2, -h / 3);
 
+	bool retflag ;
+	for (int i = 0; i < 10; i++)
+	{
+		g->fill4(
+			rndInt(w, -w / 2)
+			, rndInt(h, -h / 2)
+			, retflag);
+	}
+
+
 	CBMP b;
 	b.sizeSet(w, h);
 	for (int x = 0; x < w; x++)
@@ -55,7 +68,7 @@ int main(int argc, char** argv) {
 				);
 				//b.setPixel2(x, y, {0,0,255 });
 			}
-			else {
+			else {				
 				b.setPixel2(x, y, {
 					(BYTE)((double)rand() / RAND_MAX * 64)
 					,(BYTE)((double)rand() / RAND_MAX * 64)
@@ -73,4 +86,9 @@ int main(int argc, char** argv) {
 	b.fileSave("_test.bmp");
 
 	printf("main ed\n");
+}
+
+int rndInt(int rang, int loc)
+{
+	return (int)((double)rand() / RAND_MAX * rang + loc);
 }
